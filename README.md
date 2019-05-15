@@ -16,9 +16,9 @@ _• v1.0.0 - Se añade los ficheros correspondiente a la realización de la pr�
       •js/VideoSystem.js
       •js/DOM.js, modificado con el código correspondiente a la práctica BOM
       •Recursos.html, correspondiente a la ventana nueva donde aparecerán los recursos
-      •js/Formularios.js```
-_• v1.0.1- El fichero Formularios.js contiene_
+      •js/Formularios.js
 ```
+_• v1.0.1- El fichero Formularios.js contiene_
       •Creación de un formulario de inicio de sesión
       •Creación de una cookie
       •Función de inicio de sesión, al iniciar sesión se crea la cookie
