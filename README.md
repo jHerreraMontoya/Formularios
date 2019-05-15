@@ -28,5 +28,5 @@ _• v1.0.1- El fichero Formularios.js contiene_
       •Añadir,modificar y eliminar actrices/ores y relaccionarlos con producciones
       •Añadir,modificar y eliminar directoras/ores y relaccionarlos con producciones
       •Añadir y eliminar producciones, junto con el tipo de producción si es serie o movie, 
-      los directores y los actores a la que  pertenece dicha producción
+      los directores y los actores a la que  pertenece dicha producción.
 ```
