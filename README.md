@@ -19,6 +19,7 @@ _• v1.0.0 - Se añade los ficheros correspondiente a la realización de la pr�
       •js/Formularios.js
 ```
 _• v1.0.1- El fichero Formularios.js contiene_
+```
       •Creación de un formulario de inicio de sesión
       •Creación de una cookie
       •Función de inicio de sesión, al iniciar sesión se crea la cookie
