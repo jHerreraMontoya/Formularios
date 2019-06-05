@@ -454,7 +454,11 @@ function formDeleteCategory() {
     function deleteCategory() {
         var selectCat = document.forms["delete-category"]["deleteCategory"];
         var selectValueCat = selectCat.value;
+		
         var verificacion = document.getElementById("verificacion");
+        while (verificacion.firstChild) {
+            verificacion.removeChild(verificacion.firstChild);
+        }
 
 
         if (selectValueCat === "") {
@@ -585,8 +589,12 @@ function formDeleteActors() {
     function deleteActors() {
         var selectAct = document.forms["delete-actors"]["deleteActors"];
         var selectValueAct = selectAct.value;
-        var verificacion = document.getElementById("verificacion");
-
+        
+		var verificacion = document.getElementById("verificacion");
+        while (verificacion.firstChild) {
+            verificacion.removeChild(verificacion.firstChild);
+        }
+		
 
         if (selectValueAct === "") {
             verificacion.appendChild(document.createTextNode("Error al eliminar la Actriz/or"));
@@ -709,8 +717,11 @@ function formDeleteDirectors() {
     function deleteDirectors() {
         var selectDirec = document.forms["delete-directors"]["deleteDirectors"];
         var selectValueDirec = selectDirec.value;
-        var verificacion = document.getElementById("verificacion");
-
+       
+		var verificacion = document.getElementById("verificacion");
+        while (verificacion.firstChild) {
+            verificacion.removeChild(verificacion.firstChild);
+        }
 
         if (selectValueDirec === "") {
             verificacion.appendChild(document.createTextNode("Error al eliminar la Director/ora"));
@@ -834,8 +845,12 @@ function formDeleteProduction() {
     function deleteProduction() {
         var selectProduc = document.forms["delete-production"]["deleteProduction"];
         var selectValueProduc = selectProduc.value;
-        var verificacion = document.getElementById("verificacion");
-
+        
+		var verificacion = document.getElementById("verificacion");
+        while (verificacion.firstChild) {
+            verificacion.removeChild(verificacion.firstChild);
+        }
+	
 
         if (selectValueProduc == "") {
             verificacion.appendChild(document.createTextNode("Error al eliminar la Producción."));
@@ -846,43 +861,68 @@ function formDeleteProduction() {
             var production = productions.next();
 
             while (production.done !== true) {
-                var productionTitle = production.value.title;
-                if (selectValueProduc === productionTitle) {
-                    var eliminarPro = production.value;
+                let productionTitle = production.value.title;
+                if (productionTitle === selectValueProduc) {
+                    var delProd = production.value;
+                    
+					VSystem.removeProduction(delProd);
+                    
+					//Recorro las categorías y deasigno la production que pertenece a la categoría
+                    var categories = VSystem.categories;
+                    var category = categories.next();
+
+                    while (category.done !== true) {
+                        var foundPro = false;
+                        var productions = VSystem.getProductionsCategory(category.value);
+                        var production = productions.next();
+
+                        while ((production.done !== true) && (!foundPro)) {
+                            let productionTitle = production.value.title;
+                            if (productionTitle === selectValueProduc) {
+                                VSystem.deassignCategory(category.value, delProd);
+                            }
+                            production = productions.next();
+                        }
+                        category = categories.next();
+                    }
+
+                    /*var elenco = VSystem.getCast(production.value);
+                    var actor = elenco.next();
+
+                    while (actor.done !== true) {
+                        VSystem.deassignActor(actor.value,production.value);
+                        actor = elenco.next();
+                    }*/
+
+
+                    //Recorro los directores y deasigno la production que pertenece al director/es
+                    var directors = VSystem.directors;
+                    var director = directors.next();
+
+                    while (director.done !== true) {
+                        var productions = VSystem.getProductionsDirector(director.value);
+                        var production = productions.next();
+
+                        while (production.done !== true) {
+                            let productionTitle = production.value.title;
+                            if (productionTitle === selectValueProduc) {
+                                VSystem.deassignDirector(director.value, delProd);
+                            }
+                            production = productions.next();
+                        }
+                        director = directors.next();
+                    }
+
+
+
+
+
+
                 }
+
                 production = productions.next();
             }
-            /*var categories = VSystem.categories;
-            var category = categories.next();
-    
-            while (category.done !== true){
-                var productions = VSystem.getProductionsCategory(category.value);
-                var production = productions.next();
-    
-                while (production.done !== true){
-                    if(productionTitle == eliminarPro){
-                        VSystem.deassignCategory(category.value,production.value);
-                    }
-                    production = productions.next();
-                }
-                category = categories.next();
-            }
-    
-            var directors = VSystem.directors;
-            var director = directors.next();
-    
-            while (director.done !== true){
-                var productions = VSystem.getProductionsDirector(director.value);
-                var production = productions.next();
-    
-                while (production.done !== true){
-                    if(productionTitle == eliminarPro){
-                        VSystem.deassignDirector(director.value,production.value);
-                    }
-                    production = productions.next();
-                }
-                director = directors.next();
-            }*/
+
         }
 
         selectProduc.options[selectProduc.options.selectedIndex].remove();
@@ -2320,7 +2360,7 @@ function formCreateProduction() {
                 }
 
             }
-            selectActor.options[selectActor.options.selectedIndex].text = nameActor + " " + apellidoActor + " " + bornActor;
+            selectActor.options[selectActor.options.selectedIndex].text = nameActor + " " + apellidoActor;
             verificacion.appendChild(document.createTextNode("Se ha modifica la Actriz/or correctamente."));
             verificacion.style.color = "green";
 
@@ -2523,7 +2563,7 @@ function formCreateProduction() {
                 }
 
             }
-            selectDirector.options[selectDirector.options.selectedIndex].text = nameDirector + " " + apellidoDirector + " " + bornDirector;
+            selectDirector.options[selectDirector.options.selectedIndex].text = nameDirector + " " + apellidoDirector;
             verificacion.appendChild(document.createTextNode("Se ha modifica la Directora/or correctamente."));
             verificacion.style.color = "green";
 
