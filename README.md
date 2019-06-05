@@ -32,4 +32,5 @@ _• v1.0.1- El fichero Formularios.js contiene_
 ```
 _• v1.0.2- Realización de cambios en el fichecho Formularios..js_
       •Modificación el la function deleteProduction
-      •Implementación de código para limpiar el texto de verificación
+      •Implementación de código para limpiar el texto de verificación cada vez que
+      se haga uso del formulario con el que esta relacionado.
