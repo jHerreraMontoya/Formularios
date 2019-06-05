@@ -30,3 +30,6 @@ _• v1.0.1- El fichero Formularios.js contiene_
       •Añadir y eliminar producciones, junto con el tipo de producción si es serie o movie, 
       los directores y los actores a la que  pertenece dicha producción.
 ```
+_• v1.0.2- Realización de cambios en el fichecho Formularios..js_
+      •Modificación el la function deleteProduction
+      •Implementación de código para limpiar el texto de verificación
